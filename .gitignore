@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
-
+/Report
+/IgnoredData
 # Compiled Object files
 *.slo
 *.lo
