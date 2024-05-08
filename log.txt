@@ -1,0 +1,66 @@
+MotionLink 4.2.15 Release
+Board description found in 'data\IAM20380xx'
+Board description found in 'data\IAM20381'
+Board description found in 'data\IAM20680'
+Board description found in 'data\IAM20680HP'
+Board description found in 'data\IAM20680HT'
+Board description found in 'data\ICG20330'
+Board description found in 'data\ICG20660'
+Board description found in 'data\ICM20600'
+Board description found in 'data\ICM20601'
+Board description found in 'data\ICM20602'
+Board description found in 'data\ICM20603'
+Board description found in 'data\ICM20649'
+Board description found in 'data\ICM20689'
+Board description found in 'data\ICM20690'
+Board description found in 'data\ICM20948'
+Board description found in 'data\ICM40627'
+Board description found in 'data\ICM42370P'
+Board description found in 'data\ICM42605'
+Board description found in 'data\ICM42670P'
+Board description found in 'data\ICM42688P'
+Board description found in 'data\ICM42688V'
+Board description found in 'data\ICP10101'
+Board description found in 'data\ICP10111'
+Board description found in 'data\ICP10125'
+Board description found in 'data\ICP201xx'
+Board description found in 'data\IIM42351'
+Board description found in 'data\IIM42352'
+Board description found in 'data\IIM42652xx'
+Board description found in 'data\IIM42653x'
+29 board(s) found
+Using class 'InvGUI.Board_ICM20948' from C:\TDK-InvenSense\SmartMotion Platform 4.2.15\data\ICM20948\Board_ICM20948.cs
+PIPE 'MOTIONLINK00005674' started
+PIPE 'MOTIONLINK00005674' waits for connection
+FW open error: Object reference not set to an instance of an object.
+PIPE 'MOTIONLINK00005674' close
+PIPE 'MOTIONLINK00005674' stopped
+FW closed
+OnIncomingConnection 'MOTIONLINK00005674'
+ERROR: FW open error
+PIPE 'MOTIONLINK00005674' started
+PIPE 'MOTIONLINK00005674' waits for connection
+FW open error: Object reference not set to an instance of an object.
+PIPE 'MOTIONLINK00005674' close
+PIPE 'MOTIONLINK00005674' stopped
+FW closed
+OnIncomingConnection 'MOTIONLINK00005674'
+ERROR: FW open error
+PIPE 'MOTIONLINK00005674' started
+PIPE 'MOTIONLINK00005674' waits for connection
+FW open error: Tools DLL Init error
+PIPE 'MOTIONLINK00005674' close
+PIPE 'MOTIONLINK00005674' stopped
+FW closed
+OnIncomingConnection 'MOTIONLINK00005674'
+ERROR: FW open error
+PIPE 'MOTIONLINK00005674' started
+PIPE 'MOTIONLINK00005674' waits for connection
+FW Version = 1.0.21
+FW Version Expected = 1.0.24
+FW opened
+Using class 'InvGUI.Board_ICM20948' from C:\TDK-InvenSense\SmartMotion Platform 4.2.15\data\ICM20948\Board_ICM20948.cs
+Sensor #1 'ICM20948' (I2C,4,105) opened
+Init 20948
+ODR = 25 Hz
+Logging 'ICM20948' started
