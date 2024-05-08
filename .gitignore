@@ -1,7 +1,8 @@
 # Prerequisites
 *.d
-
-
+/IgnoredData
+/Report
+20240503_121006
 # Compiled Object files
 *.slo
 *.lo
