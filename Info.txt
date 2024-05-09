@@ -1,0 +1,83 @@
+The gyroscope has a programmable full-scale range of ±250 dps, ±500 dps, ±1000 dps, and ±2000 dps. The accelerometer has a user-programmable accelerometer full-scale range of ±2g, ±4g, ±8g, and ±16g.
+DK-20948 for ICM-20948 9 Axis Motion Sensor (Ver-C board)
+
+It means if you're measuring very small accelerations, you might choose a narrower FSR to maximize sensitivity
+Factory-calibrated initial sensitivity of both sensors reduces production-line calibration requirements.
+
+
+Having fast 7 MHz SPI or 400 kHz Fast Mode I²C communication protocols, but I connect to it through I²C with baud rate of 500khz
+Communication with all registers of the device is performed using I2C at up to 100 kHz (standard-mode) or up to 400 kHz (fast-mode), or SPI at up to 7 MHz.
+
+Gyroscopes typically exhibit better stability compared to accelerometers because they are less affected by external forces like gravity. However, both sensors can experience drift over time due to factors like temperature changes and mechanical stress
+Stability metrics may include bias instability for gyroscopes (the deviation from the true value when the sensor is stationary) and zero-g offset stability for accelerometers (the stability of the sensor's zero-g output).
+
+TEMP RANGE  −40°C to +85°C  (Compass: −30°C to +85°C)
+
+
+APPLICATIONS
+• Smartphones and Tablets
+• Wearable Sensors
+• IoT Applications
+• Drones
+
+
+
+The DK-20948 is a development kit for the Invensense ICM-20948, which is a 9-axis motion sensor module. To access data directly from the DK-20948 without using the "SmartMotion" software, you would typically interface with the sensor using a microcontroller or a development board that supports the I2C or SPI communication protocol.
+
+Here's a general outline of how you can access data from the DK-20948:
+
+1. **Hardware Setup**:
+   - Connect the DK-20948 to your microcontroller or development board using the appropriate interface (usually I2C or SPI). Make sure to provide power to the DK-20948 as required.
+   - Check the datasheet or documentation for the DK-20948 to identify the pinout and interface requirements.
+
+2. **Initialize Communication**:
+   - Use the I2C or SPI protocol to communicate with the DK-20948. This typically involves sending commands and data to configure the sensor and request data readings.
+   - Consult the datasheet or programming guide for the DK-20948 to understand the register map and communication protocol.
+
+3. **Configure Sensor Settings**:
+   - Send commands to configure the DK-20948 according to your application requirements. This may include setting the sensor range, output data rates, and other parameters.
+   - Refer to the datasheet or programming guide for details on configuring the sensor settings.
+
+4. **Read Sensor Data**:
+   - Use the appropriate commands to read sensor data from the DK-20948. This typically involves reading data registers over the I2C or SPI interface.
+   - Parse the raw sensor data according to the sensor's data format and resolution. For example, the DK-20948 may provide acceleration, gyroscope, and magnetometer data in raw format.
+
+5. **Process and Interpret Data**:
+   - Process the raw sensor data as needed for your application. This may involve converting raw sensor readings to physical units (e.g., meters per second squared for acceleration) and applying calibration or filtering algorithms.
+   - Interpret the sensor data to extract relevant information for your application, such as orientation, motion, or environmental conditions.
+
+6. **Perform Error Handling**:
+   - Implement error handling and data validation routines to ensure the reliability and integrity of the sensor data.
+   - Handle communication errors, sensor initialization failures, and other potential issues gracefully in your code.
+
+By following these steps and referring to the documentation provided for the DK-20948 and the Invensense ICM-20948 sensor, you can access data directly from the sensor without relying on the "SmartMotion" software.
+
+
+
+
+
+void MPU6050_Base::setClockSource(uint8_t source) {
+    I2Cdev::writeBits(devAddr, MPU6050_RA_PWR_MGMT_1, MPU6050_PWR1_CLKSEL_BIT, MPU6050_PWR1_CLKSEL_LENGTH, source, wireObj);
+}
+
+
+
+CLOCKING
+The internal system clock sources include: (1) an internal relaxation oscillator, and (2) a PLL with MEMS gyroscope
+oscillator as the reference clock. With the recommended clock selection setting (CLKSEL = 1), the best clock source for
+optimum sensor performance and power consumption will be automatically selected based on the power mode.
+Specifically, the internal relaxation oscillator will be selected when operating in accelerometer only mode, while the
+PLL will be selected whenever gyroscope is on, which includes gyroscope and 6-axis modes.
+As clock accuracy is critical to the preciseness of distance and angle calculations performed by DMP, it should be noted
+that the internal relaxation oscillator and PLL show different performances in some aspects. The internal relaxation
+oscillator is trimmed to have a consistent operating frequency at room temperature, while the PLL clock frequency
+varies from part to part. The PLL frequency deviation from the nominal value in percentage is captured in register
+TIMEBASE_CORRECTION_PLL, and users can factor it in during distance and angle calculations to not sacrifice
+accuracy. Other than that, PLL has better frequency stability and lower frequency variation over temperature than the
+internal relaxation oscillator.
+
+
+L2948
+K96L81
+2213
+
