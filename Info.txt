@@ -63,18 +63,105 @@ void MPU6050_Base::setClockSource(uint8_t source) {
 
 
 CLOCKING
-The internal system clock sources include: (1) an internal relaxation oscillator, and (2) a PLL with MEMS gyroscope
-oscillator as the reference clock. With the recommended clock selection setting (CLKSEL = 1), the best clock source for
+The internal system clock sources include: (1) an internal relaxation oscillator, and (2) a PLL with MEMS gyroscope oscillator as the reference clock. With the recommended clock selection setting (CLKSEL = 1), the best clock source for
 optimum sensor performance and power consumption will be automatically selected based on the power mode.
-Specifically, the internal relaxation oscillator will be selected when operating in accelerometer only mode, while the
-PLL will be selected whenever gyroscope is on, which includes gyroscope and 6-axis modes.
-As clock accuracy is critical to the preciseness of distance and angle calculations performed by DMP, it should be noted
-that the internal relaxation oscillator and PLL show different performances in some aspects. The internal relaxation
-oscillator is trimmed to have a consistent operating frequency at room temperature, while the PLL clock frequency
-varies from part to part. The PLL frequency deviation from the nominal value in percentage is captured in register
-TIMEBASE_CORRECTION_PLL, and users can factor it in during distance and angle calculations to not sacrifice
-accuracy. Other than that, PLL has better frequency stability and lower frequency variation over temperature than the
+Specifically, the internal relaxation oscillator will be selected when operating in accelerometer only mode, while the PLL will be selected whenever gyroscope is on, which includes gyroscope and 6-axis modes.
+As clock accuracy is critical to the preciseness of distance and angle calculations performed by DMP, it should be noted that the internal relaxation oscillator and PLL show different performances in some aspects. The internal relaxation
+oscillator is trimmed to have a consistent operating frequency at room temperature, while the PLL clock frequency varies from part to part. The PLL frequency deviation from the nominal value in percentage is captured in register
+TIMEBASE_CORRECTION_PLL, and users can factor it in during distance and angle calculations to not sacrifice accuracy. Other than that, PLL has better frequency stability and lower frequency variation over temperature than the
 internal relaxation oscillator.
+
+
+
+Here are some key features of the SAMG55 microcontroller:
+
+ARM Cortex-M4 Core:
+The SAMG55 is built around the ARM Cortex-M4 core, which offers a combination of high performance, low power consumption, and advanced digital signal processing capabilities.
+The Cortex-M4 core includes features such as a floating-point unit (FPU) for efficient numerical computations, single-cycle multiply-accumulate (MAC) instructions, and DSP (Digital Signal Processing) extensions.
+
+Clock Speed:
+The SAMG55 microcontroller typically operates at clock speeds ranging from tens to hundreds of megahertz (120MHz), depending on the specific device variant and configuration.
+Clock sources include internal oscillators, external crystal oscillators, and PLL (Phase-Locked Loop) modules for generating precise clock signals.
+
+Memory:
+The SAMG55 microcontroller features on-chip flash memory for program storage and SRAM for data storage.
+Flash memory sizes range from 512 KB to 2 MB, and SRAM sizes range from 128 KB to 256 KB, depending on the specific device variant.
+
+Peripherals:
+The SAMG55 includes a wide range of on-chip peripherals, including timers/counters, UARTs (Universal Asynchronous Receiver-Transmitters), SPI (Serial Peripheral Interface) controllers, I2C (Inter-Integrated Circuit) interfaces, ADCs (Analog-to-Digital Converters), DACs (Digital-to-Analog Converters), and PWM (Pulse-Width Modulation) controllers.
+Additionally, the SAMG55 may include specialized peripherals such as USB (Universal Serial Bus) interfaces, Ethernet controllers, cryptographic modules, and LCD (Liquid Crystal Display) controllers, depending on the specific device variant.
+
+
+Comprehensive development platform for ICM-20948 9-axis motion sensor that combines a 3-axis gyroscope, a 3-axis accelerometer, a 3-axis compass and a DMPTM (Digital Motion Processor™). The development kit comes with necessary software including InvenSense® motionLink, a GUI based development tool and embedded motion drivers for ICM-20948. Embedded Motion Drivers (eMD) consists of a set of APIs to configure various aspects of the platform including ICM-20948 sensor parameters such as full-scale range (FSR), output data rate (ODR), low-power or low-noise mode and sensor interface to host (I2C, SPI). MotionLink is a GUI based development tool included with the platform. It can be used to capture and visualize the sensor data from the motion sensor.
+SmartMotion® platform by InvenSense®
+-Microchip G55 MCU with 512KB flash
+-On-board embedded debugger for programming and debugging
+-USB connectors for host interface to support software debug and sensor data logging
+-Board power supply through USB
+-Sensor fusion
+-Accelerometer, gyroscope and compass calibration
+-Rotation vector, Game rotation vector, gravity, linear acceleration android functions
+-Step detection and step count pedometer functions
+-Pickup, tilt, bring to see gestures
+
+
+
+picoPower
+Down to 100 µA/MHz in active
+Below 7 µA in deep sleep with SRAM retention
+Down to 3 µs wake-up from deep sleep to executing the first instruction in active mode
+Cortex-M4
+FPU
+Small package
+3x3 mm w/ 0.4mm pitch, WLCSP 7x7 pins
+Pin compatibility across the family
+ARM Cortex-M4 with up to 16 Kbytes SRAM on I/D bus providing 0 wait state execution at up to 120 MHz
+Memory Protection Unit (MPU)
+DSP Instructions, Floating Point Unit (FPU), Thumb®-2 instruction set
+Up to 512 Kbytes embedded Flash
+Up to 176 Kbytes embedded SRAM
+8 Kbytes ROM with embedded boot loader, single-cycle access at full speed
+Embedded voltage regulator for single-supply operation
+Power-on reset (POR) and Watchdog for safe operation
+Quartz or ceramic resonator oscillators: 3 to 20 MHz with clock failure detection and 32.768 kHz for RTT or system clock
+High-precision 8/16/24 MHz factory-trimmed internal RC oscillator. In-application trimming access for frequency adjustment
+Slow clock internal RC oscillator as permanent low-power mode device clock
+PLL range from 48 MHz to 120 MHz for device clock
+PLL range from 24 MHz to 48 MHz for USB device and USB OHCI
+Up to 30 peripheral DMA (PDC) channels
+256-bit General-Purpose Backup Registers (GPBR)
+16 external interrupt lines
+49-lead WLCSP, 64-lead LQFP, 64-lead QFN
+Industrial (-40° C to +85° C)
+USART, SPI, or Two-wire Interface (TWI)
+USB 2.0 Device and USB Host OHCI with On-chip Transceiver
+2 Inter-IC Sound Controllers (I2S)
+2 three-channel 16-bit Timer/Counters (TC) with capture, waveform, compare and PWM modes
+1 48-bit Real-Time Timer (RTT) with 16-bit prescaler and 32-bit counter
+1 RTC with calendar and alarm features 1 32-bit Cyclic Redundancy Check Calculation Unit (CRCCU)
+Up to 48 I/O lines with external interrupt capability (edge or level), debouncing, glitch filtering and on-die series resistor termination. Individually programmable open-drain, pull-up and pull-down resistor and synchronous output Two PIO Controllers provide control of up to 48 I/O lines
+1 Pulse Density Modulation Interface (PDMIC) (supports up to two microphones)  
+12-bit ADC Module:
+One 8-channel ADC, 500 kSps Conversion Rate
+12-bit Resolution with Enhanced Mode up to 16 bits
+Digital Averaging Function providing Enhanced Resolution Mode up to 16 bits
+Integrated Multiplexer Offering Up to 8 Independent Analog Inputs
+Standby Mode for Fast Wakeup Time Response
+Asynchronous Partial Wake-up (Sleepwalking) on external trigger
+Serial Wire/JTAG Debug Port(SWJ-DP)
+Debug access to all memories and registers in the system, including Cortex-M4 register bank when the core is running, halted, or held in reset.
+Serial Wire Debug Port (SW-DP) and Serial Wire JTAG Debug Port (SWJ-DP) debug access.
+Flash Patch and Breakpoint (FPB) unit for implementing breakpoints and code patches.
+Data Watchpoint and Trace (DWT) unit for implementing watchpoints, data tracing, and system profiling.
+Instrumentation Trace Macrocell (ITM) for support of printf style debugging.
+IEEE1149.1 JTAG Boundary-scan on all digital pins.
+ASF-Atmel software Framework – SAM software development framework
+Integrated in the Atmel Studio IDE with a graphical user interface or available as standalone for GCC, IAR compilers.
+DMA support, Interrupt handlers Driver support
+USB, TCP/IP, Wi-Fi and Bluetooth, Numerous USB classes, DHCP and Wi-Fi encryption Stacks
+Image formats, file system & GUI library Middleware
+RTOS integration, FreeRTOS a core component
+
 
 
 L2948
