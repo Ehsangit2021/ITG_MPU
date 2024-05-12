@@ -1,0 +1,83 @@
+A) We are evaluating this board and that means. what r the different connectors and port available and their functionality?
+
+Gyroscopes typically exhibit better stability compared to accelerometers because they are less affected by external forces like gravity.
+However, both sensors can experience drift over time due to factors like temperature changes and mechanical stress.
+
+Stability metrics may include bias instability for gyroscopes (the deviation from the true value when the sensor is stationary) and
+zero-g offset stability for accelerometers (the stability of the sensor's zero-g output).
+
+***********************************************************************************************
+B) Can the Atmel MCU (in this board) be programmed, if yes ? how much flash and ram is available?
+
+Memory (Info from Datasheet):
+The SAMG55 microcontroller features on-chip flash memory for program storage and SRAM for data storage.
+Flash memory sizes range from 512 KB to 2 MB, and SRAM sizes range from 128 KB to 256 KB, depending on the specific device variant.
+***********************************************************************************************
+
+C) If yes, how is programmed? What do we need ?
+
+Jumper configurations:
+
+- Power (J1)
+o To power the Dev Kit via the EDBG USB port (J500), connect a jumper across pins 3 & 4.
+o To receive power via the FTDI USB port (CN6), connect a jumper across pins 5 & 6 (default).
+Note: The second configuration (power over the FTDI port) is useful when the firmware has already been flashed and no
+debugging is required. This configuration allows only for only one USB connection, via the FTDI port.
+
+- I2C/SPI configuration (J2)
+o For communication between the ATSAMG55 and the ICM20948 via I2C, add jumpers between pins 1 & 2 and pins 3 & 4.
+o For communication between the ATSAMG55 and the ICM20948 via SPI, remove the jumpers between pins 1 & 2 and pins 3 & 4.
+
+- UART J3:
+o For UART communication over FTDI, connect pins 1 & 2 and pins 3 & 4
+
+- AKM9916 based Magnetometer
+o The Magnetometer is inbuilt and no external jumper connection is required to access the compass.
+
+
+***********************************************************************************************
+D) What embedded comm protocols can be used to communicate with this IMU DK 20948? What Is the fastest Frequency of data acquisition?
+
+The dev-board is initially configured for I2C communication between the ATSAMG55 and the ICM20948
+
+Having fast 7 MHz SPI or 400 kHz Fast Mode I²C communication protocols, but I connect to it through I²C with baud rate of 500khz
+Communication with all registers of the device is performed using I2C at up to 100 kHz (standard-mode) or up to 400 kHz (fast-mode), or SPI at up to 7 MHz.
+More detail of clocking is presented down.
+
+
+CLOCKING
+The internal system clock sources include: (1) an internal relaxation oscillator, and (2) a PLL with MEMS gyroscope oscillator as the reference clock. With the recommended clock selection setting (CLKSEL = 1), the best clock source for
+optimum sensor performance and power consumption will be automatically selected based on the power mode.
+Specifically, the internal relaxation oscillator will be selected when operating in accelerometer only mode, while the PLL will be selected whenever gyroscope is on, which includes gyroscope and 6-axis modes.
+As clock accuracy is critical to the preciseness of distance and angle calculations performed by DMP, it should be noted that the internal relaxation oscillator and PLL show different performances in some aspects. The internal relaxation
+oscillator is trimmed to have a consistent operating frequency at room temperature, while the PLL clock frequency varies from part to part. The PLL frequency deviation from the nominal value in percentage is captured in register
+TIMEBASE_CORRECTION_PLL, and users can factor it in during distance and angle calculations to not sacrifice accuracy. Other than that, PLL has better frequency stability and lower frequency variation over temperature than the
+internal relaxation oscillator.
+
+Clock Speed (Info from Datasheet):
+The SAMG55 microcontroller typically operates at clock speeds ranging from tens to hundreds of megahertz (120MHz), depending on the specific device variant and configuration.
+Clock sources include internal oscillators, external crystal oscillators, and PLL (Phase-Locked Loop) modules for generating precise clock signals.
+
+
+***********************************************************************************************
+
+E) What is the Data structure output of the IMU ? (Between the IMU and the HOST) ,  And how big is the data?
+
+
+The DK-20948 is a development kit for the Invensense ICM-20948, which is a 9-axis motion sensor module.
+To access data directly from the DK-20948 without using the "SmartMotion" software,
+you would typically interface with the sensor using a microcontroller or a development board that supports the I2C or SPI communication protocol.
+
+
+***********************************************************************************************
+F) How can we calibrated in terms what software in hard test bench we need to build?  (That’s why is important to understand this board, so we could implement a simple calibration scheme using this board .. before building our own mini board only with the IMU.)
+
+To Buy (Link from part 1.1 https://invensense.tdk.com/wp-content/uploads/2024/03/eMD_Software_Guide_ICM20948.pdf)
+https://www.microchip.com/en-us/development-tool/atsamg55-xpro#
+
+
+***********************************************************************************************
+
+G) Basic Polynomial or/and   Curve-fitting or/and Computing Approximation to calibrate this guy? How we should save this data?
+H) 3D Tracking algorithms prototyping with this board / Kalman Filter
+I) Design of an array (custom made) PCB with this IMU to create Perceptor Internal real time mapping

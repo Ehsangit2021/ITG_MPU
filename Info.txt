@@ -1,38 +1,10 @@
-The gyroscope has a programmable full-scale range of ±250 dps, ±500 dps, ±1000 dps, and ±2000 dps. The accelerometer has a user-programmable accelerometer full-scale range of ±2g, ±4g, ±8g, and ±16g.
 DK-20948 for ICM-20948 9 Axis Motion Sensor (Ver-C board)
 
-The dev-board is configured for I2C communication between the ATSAMG55 and the ICM20948
+The gyroscope has a programmable full-scale range of ±250 dps, ±500 dps, ±1000 dps, and ±2000 dps. The accelerometer has a user-programmable accelerometer full-scale range of ±2g, ±4g, ±8g, and ±16g. 
+It means if you're measuring very small accelerations, you might choose a narrower FSR to maximize sensitivity Factory-calibrated initial sensitivity of both sensors reduces production-line calibration requirements.
 
-Jumper configurations:
-
-- Power (J1)
-o To power the Dev Kit via the EDBG USB port (J500), connect a jumper across pins 3 & 4.
-o To receive power via the FTDI USB port (CN6), connect a jumper across pins 5 & 6 (default).
-Note: The second configuration (power over the FTDI port) is useful when the firmware has already been flashed and no
-debugging is required. This configuration allows only for only one USB connection, via the FTDI port.
-
-- I2C/SPI configuration (J2)
-o For communication between the ATSAMG55 and the ICM20948 via I2C, add jumpers between pins 1 & 2 and pins 3 & 4.
-o For communication between the ATSAMG55 and the ICM20948 via SPI, remove the jumpers between pins 1 & 2 and pins 3 & 4.
-
-- UART J3:
-o For UART communication over FTDI, connect pins 1 & 2 and pins 3 & 4
-
-- AKM9916 based Magnetometer
-o The Magnetometer is inbuilt and no external jumper connection is required to access the compass.
-
-It means if you're measuring very small accelerations, you might choose a narrower FSR to maximize sensitivity
-Factory-calibrated initial sensitivity of both sensors reduces production-line calibration requirements.
-
-
-Having fast 7 MHz SPI or 400 kHz Fast Mode I²C communication protocols, but I connect to it through I²C with baud rate of 500khz
-Communication with all registers of the device is performed using I2C at up to 100 kHz (standard-mode) or up to 400 kHz (fast-mode), or SPI at up to 7 MHz.
-
-Gyroscopes typically exhibit better stability compared to accelerometers because they are less affected by external forces like gravity. However, both sensors can experience drift over time due to factors like temperature changes and mechanical stress
-Stability metrics may include bias instability for gyroscopes (the deviation from the true value when the sensor is stationary) and zero-g offset stability for accelerometers (the stability of the sensor's zero-g output).
 
 TEMP RANGE  −40°C to +85°C  (Compass: −30°C to +85°C)
-
 
 APPLICATIONS
 • Smartphones and Tablets
@@ -42,7 +14,7 @@ APPLICATIONS
 
 
 
-The DK-20948 is a development kit for the Invensense ICM-20948, which is a 9-axis motion sensor module. To access data directly from the DK-20948 without using the "SmartMotion" software, you would typically interface with the sensor using a microcontroller or a development board that supports the I2C or SPI communication protocol.
+
 
 Here's a general outline of how you can access data from the DK-20948:
 
@@ -75,22 +47,10 @@ By following these steps and referring to the documentation provided for the DK-
 
 
 
-
+Programming detail for running a sensor
 void MPU6050_Base::setClockSource(uint8_t source) {
     I2Cdev::writeBits(devAddr, MPU6050_RA_PWR_MGMT_1, MPU6050_PWR1_CLKSEL_BIT, MPU6050_PWR1_CLKSEL_LENGTH, source, wireObj);
 }
-
-
-
-CLOCKING
-The internal system clock sources include: (1) an internal relaxation oscillator, and (2) a PLL with MEMS gyroscope oscillator as the reference clock. With the recommended clock selection setting (CLKSEL = 1), the best clock source for
-optimum sensor performance and power consumption will be automatically selected based on the power mode.
-Specifically, the internal relaxation oscillator will be selected when operating in accelerometer only mode, while the PLL will be selected whenever gyroscope is on, which includes gyroscope and 6-axis modes.
-As clock accuracy is critical to the preciseness of distance and angle calculations performed by DMP, it should be noted that the internal relaxation oscillator and PLL show different performances in some aspects. The internal relaxation
-oscillator is trimmed to have a consistent operating frequency at room temperature, while the PLL clock frequency varies from part to part. The PLL frequency deviation from the nominal value in percentage is captured in register
-TIMEBASE_CORRECTION_PLL, and users can factor it in during distance and angle calculations to not sacrifice accuracy. Other than that, PLL has better frequency stability and lower frequency variation over temperature than the
-internal relaxation oscillator.
-
 
 
 Here are some key features of the SAMG55 microcontroller:
@@ -99,17 +59,6 @@ ARM Cortex-M4 Core:
 The SAMG55 is built around the ARM Cortex-M4 core, which offers a combination of high performance, low power consumption, and advanced digital signal processing capabilities.
 The Cortex-M4 core includes features such as a floating-point unit (FPU) for efficient numerical computations, single-cycle multiply-accumulate (MAC) instructions, and DSP (Digital Signal Processing) extensions.
 
-Clock Speed:
-The SAMG55 microcontroller typically operates at clock speeds ranging from tens to hundreds of megahertz (120MHz), depending on the specific device variant and configuration.
-Clock sources include internal oscillators, external crystal oscillators, and PLL (Phase-Locked Loop) modules for generating precise clock signals.
-
-Memory:
-The SAMG55 microcontroller features on-chip flash memory for program storage and SRAM for data storage.
-Flash memory sizes range from 512 KB to 2 MB, and SRAM sizes range from 128 KB to 256 KB, depending on the specific device variant.
-
-Peripherals:
-The SAMG55 includes a wide range of on-chip peripherals, including timers/counters, UARTs (Universal Asynchronous Receiver-Transmitters), SPI (Serial Peripheral Interface) controllers, I2C (Inter-Integrated Circuit) interfaces, ADCs (Analog-to-Digital Converters), DACs (Digital-to-Analog Converters), and PWM (Pulse-Width Modulation) controllers.
-Additionally, the SAMG55 may include specialized peripherals such as USB (Universal Serial Bus) interfaces, Ethernet controllers, cryptographic modules, and LCD (Liquid Crystal Display) controllers, depending on the specific device variant.
 
 
 Comprehensive development platform for ICM-20948 9-axis motion sensor that combines a 3-axis gyroscope, a 3-axis accelerometer, a 3-axis compass and a DMPTM (Digital Motion Processor™). The development kit comes with necessary software including InvenSense® motionLink, a GUI based development tool and embedded motion drivers for ICM-20948. Embedded Motion Drivers (eMD) consists of a set of APIs to configure various aspects of the platform including ICM-20948 sensor parameters such as full-scale range (FSR), output data rate (ODR), low-power or low-noise mode and sensor interface to host (I2C, SPI). MotionLink is a GUI based development tool included with the platform. It can be used to capture and visualize the sensor data from the motion sensor.
@@ -183,11 +132,6 @@ USB, TCP/IP, Wi-Fi and Bluetooth, Numerous USB classes, DHCP and Wi-Fi encryptio
 Image formats, file system & GUI library Middleware
 RTOS integration, FreeRTOS a core component
 
-
-
-
-To Buy:
-https://www.microchip.com/en-us/development-tool/atsamg55-xpro#       because of this link in part 1.1 https://invensense.tdk.com/wp-content/uploads/2024/03/eMD_Software_Guide_ICM20948.pdf
 
 
 
