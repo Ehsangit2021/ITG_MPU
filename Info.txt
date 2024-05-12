@@ -1,6 +1,26 @@
 The gyroscope has a programmable full-scale range of ±250 dps, ±500 dps, ±1000 dps, and ±2000 dps. The accelerometer has a user-programmable accelerometer full-scale range of ±2g, ±4g, ±8g, and ±16g.
 DK-20948 for ICM-20948 9 Axis Motion Sensor (Ver-C board)
 
+The dev-board is configured for I2C communication between the ATSAMG55 and the ICM20948
+
+Jumper configurations:
+
+- Power (J1)
+o To power the Dev Kit via the EDBG USB port (J500), connect a jumper across pins 3 & 4.
+o To receive power via the FTDI USB port (CN6), connect a jumper across pins 5 & 6 (default).
+Note: The second configuration (power over the FTDI port) is useful when the firmware has already been flashed and no
+debugging is required. This configuration allows only for only one USB connection, via the FTDI port.
+
+- I2C/SPI configuration (J2)
+o For communication between the ATSAMG55 and the ICM20948 via I2C, add jumpers between pins 1 & 2 and pins 3 & 4.
+o For communication between the ATSAMG55 and the ICM20948 via SPI, remove the jumpers between pins 1 & 2 and pins 3 & 4.
+
+- UART J3:
+o For UART communication over FTDI, connect pins 1 & 2 and pins 3 & 4
+
+- AKM9916 based Magnetometer
+o The Magnetometer is inbuilt and no external jumper connection is required to access the compass.
+
 It means if you're measuring very small accelerations, you might choose a narrower FSR to maximize sensitivity
 Factory-calibrated initial sensitivity of both sensors reduces production-line calibration requirements.
 
@@ -141,6 +161,7 @@ USB 2.0 Device and USB Host OHCI with On-chip Transceiver
 1 RTC with calendar and alarm features 1 32-bit Cyclic Redundancy Check Calculation Unit (CRCCU)
 Up to 48 I/O lines with external interrupt capability (edge or level), debouncing, glitch filtering and on-die series resistor termination. Individually programmable open-drain, pull-up and pull-down resistor and synchronous output Two PIO Controllers provide control of up to 48 I/O lines
 1 Pulse Density Modulation Interface (PDMIC) (supports up to two microphones)  
+
 12-bit ADC Module:
 One 8-channel ADC, 500 kSps Conversion Rate
 12-bit Resolution with Enhanced Mode up to 16 bits
@@ -161,6 +182,12 @@ DMA support, Interrupt handlers Driver support
 USB, TCP/IP, Wi-Fi and Bluetooth, Numerous USB classes, DHCP and Wi-Fi encryption Stacks
 Image formats, file system & GUI library Middleware
 RTOS integration, FreeRTOS a core component
+
+
+
+
+To Buy:
+https://www.microchip.com/en-us/development-tool/atsamg55-xpro#       because of this link in part 1.1 https://invensense.tdk.com/wp-content/uploads/2024/03/eMD_Software_Guide_ICM20948.pdf
 
 
 
