@@ -75,7 +75,11 @@ F) How can we calibrated in terms what software in hard test bench we need to bu
 To Buy (Link from part 1.1 https://invensense.tdk.com/wp-content/uploads/2024/03/eMD_Software_Guide_ICM20948.pdf)
 https://www.microchip.com/en-us/development-tool/atsamg55-xpro#
 
-
+Nucleo Boards
+Embedded MotionDriver for ARM M4 ST Nucleo Board will allow you to enable features like Wake On Motion and Self-Test.
+Use our command line tool “sensor-cli” to take advantage of this. Also included are example projects developed with the IAR toolchain.
+Some packages include an external library with our proprietary algorithms that will provide sensor fusion.
+Others do not require external libraries making it easy to port to other systems.
 ***********************************************************************************************
 
 G) Basic Polynomial or/and   Curve-fitting or/and Computing Approximation to calibrate this guy? How we should save this data?
