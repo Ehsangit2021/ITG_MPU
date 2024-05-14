@@ -1,38 +1,18 @@
 A) We are evaluating this board and that means. what r the different connectors and port available and their functionality?
 
-Gyroscopes typically exhibit better stability compared to accelerometers because they are less affected by external forces like gravity.
-However, both sensors can experience drift over time due to factors like temperature changes and mechanical stress.
 
-Stability metrics may include bias instability for gyroscopes (the deviation from the true value when the sensor is stationary) and
-zero-g offset stability for accelerometers (the stability of the sensor's zero-g output).
 
 ***********************************************************************************************
 B) Can the Atmel MCU (in this board) be programmed, if yes ? how much flash and ram is available?
 
 Memory (Info from Datasheet):
-The SAMG55 microcontroller features on-chip flash memory for program storage and SRAM for data storage.
 Flash memory sizes range from 512 KB to 2 MB, and SRAM sizes range from 128 KB to 256 KB, depending on the specific device variant.
 ***********************************************************************************************
 
 C) If yes, how is programmed? What do we need ?
 
-Jumper configurations:
-
-- Power (J1)
-o To power the Dev Kit via the EDBG USB port (J500), connect a jumper across pins 3 & 4.
-o To receive power via the FTDI USB port (CN6), connect a jumper across pins 5 & 6 (default).
-Note: The second configuration (power over the FTDI port) is useful when the firmware has already been flashed and no
-debugging is required. This configuration allows only for only one USB connection, via the FTDI port.
-
-- I2C/SPI configuration (J2)
-o For communication between the ATSAMG55 and the ICM20948 via I2C, add jumpers between pins 1 & 2 and pins 3 & 4.
-o For communication between the ATSAMG55 and the ICM20948 via SPI, remove the jumpers between pins 1 & 2 and pins 3 & 4.
-
-- UART J3:
-o For UART communication over FTDI, connect pins 1 & 2 and pins 3 & 4
-
-- AKM9916 based Magnetometer
-o The Magnetometer is inbuilt and no external jumper connection is required to access the compass.
+I need Atmel Studio License. The free version does not support all features.
+There are two complementary board to extend the DK-20948 board.
 
 
 ***********************************************************************************************
@@ -40,9 +20,11 @@ D) What embedded comm protocols can be used to communicate with this IMU DK 2094
 
 The dev-board is initially configured for I2C communication between the ATSAMG55 and the ICM20948
 
-Having fast 7 MHz SPI or 400 kHz Fast Mode I²C communication protocols, but I connect to it through I²C with baud rate of 500khz
+Having fast 7 MHz SPI or 400 kHz Fast Mode I²C communication protocols.
 Communication with all registers of the device is performed using I2C at up to 100 kHz (standard-mode) or up to 400 kHz (fast-mode), or SPI at up to 7 MHz.
-More detail of clocking is presented down.
+
+***********************************************************************************************
+More detail of clocking for ATSAMG55 is presented down.
 
 
 CLOCKING
@@ -63,10 +45,28 @@ Clock sources include internal oscillators, external crystal oscillators, and PL
 
 E) What is the Data structure output of the IMU ? (Between the IMU and the HOST) ,  And how big is the data?
 
+The below are two images of accelerometer data either raw or processed.
+Also the code for directly fetching data from SAMG55 in Atmel Studio is available. For programmming the ARM processor I need more time.
+It is easy just need more concentration. The pin header configuration for it is as follow:
 
-The DK-20948 is a development kit for the Invensense ICM-20948, which is a 9-axis motion sensor module.
-To access data directly from the DK-20948 without using the "SmartMotion" software,
-you would typically interface with the sensor using a microcontroller or a development board that supports the I2C or SPI communication protocol.
+***********************
+Jumper configurations:
+
+- Power (J1)
+o To power the Dev Kit via the EDBG USB port (J500) (for programming and debugging), connect a jumper across pins 3 & 4.
+o To receive power via the FTDI USB port (CN6), connect a jumper across pins 5 & 6 (default).
+Note: The second configuration (power over the FTDI port) is useful when the firmware has already been flashed and no
+debugging is required. This configuration allows only for only one USB connection, via the FTDI port.
+
+- I2C/SPI configuration (J2)
+o For communication between the ATSAMG55 and the ICM20948 via I2C, add jumpers between pins 1 & 2 and pins 3 & 4.
+o For communication between the ATSAMG55 and the ICM20948 via SPI, remove the jumpers between pins 1 & 2 and pins 3 & 4.
+
+- UART J3:
+o For UART communication over FTDI, connect pins 1 & 2 and pins 3 & 4
+
+- AKM9916 based Magnetometer
+o The Magnetometer is inbuilt and no external jumper connection is required to access the compass.
 
 
 ***********************************************************************************************
@@ -77,11 +77,40 @@ https://www.microchip.com/en-us/development-tool/atsamg55-xpro#
 
 Nucleo Boards
 Embedded MotionDriver for ARM M4 ST Nucleo Board will allow you to enable features like Wake On Motion and Self-Test.
-Use our command line tool “sensor-cli” to take advantage of this. Also included are example projects developed with the IAR toolchain.
+Also included are example projects developed with the IAR toolchain.
 Some packages include an external library with our proprietary algorithms that will provide sensor fusion.
 Others do not require external libraries making it easy to port to other systems.
 ***********************************************************************************************
 
-G) Basic Polynomial or/and   Curve-fitting or/and Computing Approximation to calibrate this guy? How we should save this data?
+G) Basic Polynomial or/and Curve-fitting or/and Computing Approximation to calibrate this guy? How we should save this data?
+
+There are 3 ways to save the data:
+1- by the Motion link software from TDK
+2- Save data from FTDI and I2c with atmel studio and arm programming.
+
+3- To access data directly from the DK-20948 without using the "SmartMotion" software,
+we would typically interface with the sensor using a microcontroller or a development board that supports the I2C or SPI communication protocol.
+Like using a middle-man board to connect to the board through I2C protocol and Pin headers.
+
+When the atmel studio ARM programming starts, All Curve-fitting, Computing Approximation or Basic Polynomial will be possible.
+I am also able to run some neural network training according to the data acquisition.
+
+***********************************************************************************************
 H) 3D Tracking algorithms prototyping with this board / Kalman Filter
+
+A demo is attached to this report regarding the tracking of accelerometer. the cube is following the sensor move and angle change.
+
+
+***********************************************************************************************
+There are some considerations:
+
+Gyroscopes typically exhibit better stability compared to accelerometers because they are less affected by external forces like gravity.
+However, both sensors can experience drift over time due to factors like temperature changes and mechanical stress.
+
+Stability metrics may include bias instability for gyroscopes (the deviation from the true value when the sensor is stationary) and
+zero-g offset stability for accelerometers (the stability of the sensor's zero-g output).
+
+***********************************************************************************************
 I) Design of an array (custom made) PCB with this IMU to create Perceptor Internal real time mapping
+
+I am currently working 224 hour in a hotel per month. If I could release this time I will be able to complete steps quickly.
