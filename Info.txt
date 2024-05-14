@@ -134,6 +134,11 @@ RTOS integration, FreeRTOS a core component
 
 
 
+The ICP-10100 barometric pressure sensor is based on MEMS capacitive technology which provides ultra-low noise at the lowest power, enabling industry leading relative accuracy, sensor throughput, and temperature stability.
+The 7-Axis ICM-20789 is an integrated 6-axis inertial device that combines a 3-axis gyroscope, 3-axis accelerometer, and an ultra-low noise MEMS capacitive barometric pressure sensor
+
+
+
 
 L2948
 K96L81
